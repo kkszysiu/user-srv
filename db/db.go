@@ -26,17 +26,17 @@ var (
 				values (?, ?, ?, ?, ?, ?, ?)`,
 		"update":                 "UPDATE %s.%s set username = ?, email = ?, updated = ? where id = ?",
 		"updatePassword":         "UPDATE %s.%s set salt = ?, password = ?, updated = ? where id = ?",
-		"read":                   "SELECT * from %s.%s where id = ?",
-		"list":                   "SELECT * from %s.%s limit ? offset ?",
-		"searchUsername":         "SELECT * from %s.%s where username = ? limit ? offset ?",
-		"searchEmail":            "SELECT * from %s.%s where email = ? limit ? offset ?",
-		"searchUsernameAndEmail": "SELECT * from %s.%s where username = ? and email = ? limit ? offset ?",
+		"read":                   "SELECT id, username, email, salt, password, created, updated from %s.%s where id = ?",
+		"list":                   "SELECT id, username, email, salt, password, created, updated from %s.%s limit ? offset ?",
+		"searchUsername":         "SELECT id, username, email, salt, password, created, updated from %s.%s where username = ? limit ? offset ?",
+		"searchEmail":            "SELECT id, username, email, salt, password, created, updated from %s.%s where email = ? limit ? offset ?",
+		"searchUsernameAndEmail": "SELECT id, username, email, salt, password, created, updated from %s.%s where username = ? and email = ? limit ? offset ?",
 	}
 
 	sessionQ = map[string]string{
 		"createSession": "INSERT into %s.%s (id, username, created, expires) values (?, ?, ?, ?)",
 		"deleteSession": "DELETE from %s.%s where id = ?",
-		"readSession":   "SELECT * from %s.%s where id = ?",
+		"readSession":   "SELECT id, username, created, expires from %s.%s where id = ?",
 	}
 
 	st = map[string]*sql.Stmt{}
