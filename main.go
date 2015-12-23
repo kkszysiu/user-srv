@@ -11,10 +11,7 @@ import (
 )
 
 func main() {
-	app := cli.NewApp()
-	app.HideVersion = true
-	app.Flags = cmd.Flags
-	app.Flags = append(app.Flags,
+	cmd.Flags = append(cmd.Flags,
 		cli.StringFlag{
 			Name:   "database_url",
 			EnvVar: "DATABASE_URL",
@@ -22,11 +19,11 @@ func main() {
 		},
 	)
 
-	app.Before = cmd.Setup
-	app.Action = func(c *cli.Context) {
+	cmd.Actions = append(cmd.Actions, func(c *cli.Context) {
 		db.Url = c.String("database_url")
-	}
-	app.RunAndExitOnError()
+	})
+
+	cmd.Init()
 
 	db.Init()
 
